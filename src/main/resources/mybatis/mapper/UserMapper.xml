@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo1.dao.IndexDao" >
+    <resultMap id="BaseResultMap" type="com.example.demo1.model.User" >
+        <id column="PersonId" property="personId" jdbcType="INTEGER" />
+        <result column="FirstName" property="firstName" jdbcType="VARCHAR" />
+        <result column="LastName" property="lastName" jdbcType="VARCHAR" />
+        <result column="DateOfBirth" property="dateOfBirth" jdbcType="DATE" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        personId, firstName, lastName,dateOfBirth
+    </sql>
+
+    <select id="getAll" resultMap="BaseResultMap"  >
+       SELECT 
+       <include refid="Base_Column_List" />
+	   FROM person
+    </select>
+
+    <select id="getOne" parameterType="java.lang.Long" resultMap="BaseResultMap" >
+        SELECT 
+       <include refid="Base_Column_List" />
+	   FROM person
+	   WHERE personId = #{id}
+    </select>
+
+<!--     <insert id="insert" parameterType="com.neo.model.User" > -->
+<!--        INSERT INTO  -->
+<!--        		users -->
+<!--        		(userName,passWord,user_sex)  -->
+<!--        	VALUES -->
+<!--        		(#{userName}, #{passWord}, #{userSex}) -->
+<!--     </insert> -->
+    
+<!--     <update id="update" parameterType="com.neo.model.User" > -->
+<!--        UPDATE  -->
+<!--        		users  -->
+<!--        SET  -->
+<!--        	<if test="userName != null">userName = #{userName},</if> -->
+<!--        	<if test="passWord != null">passWord = #{passWord},</if> -->
+<!--        	nick_name = #{nickName} -->
+<!--        WHERE  -->
+<!--        		id = #{id} -->
+<!--     </update> -->
+    
+<!--     <delete id="delete" parameterType="java.lang.Long" > -->
+<!--        DELETE FROM -->
+<!--        		 users  -->
+<!--        WHERE  -->
+<!--        		 id =#{id} -->
+<!--     </delete> -->
+
+</mapper>

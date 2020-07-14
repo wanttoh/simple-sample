@@ -1,17 +1,23 @@
 package com.example.demo1.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo1.model.User;
+import com.example.demo1.service.IndexService;
+
 @RestController
 public class IndexController {
-
+	@Autowired
+	private IndexService indexServ;
 	
 	//跨域请求虽然前台报错但实际上已经访问到了后台的服务，解开下面的crossorigin注释就相当于对任何来源的请求都不做拦截
 	//除此方法之外还可以使用过滤器方式来解决跨域
@@ -26,4 +32,16 @@ public class IndexController {
 		System.out.println(param.get("mesg").toString());
 		return param;
 	}
+	
+	@RequestMapping("/getUsers")
+	public List<User> getUsers() {
+		List<User> users=indexServ.getAll();
+		return users;
+	}
+	
+    @RequestMapping("/getUser")
+    public User getUser(Long id) {
+    	User user=indexServ.getOne(id);
+        return user;
+    }
 }
